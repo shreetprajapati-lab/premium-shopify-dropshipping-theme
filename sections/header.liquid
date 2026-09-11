@@ -1,0 +1,10 @@
+<header class="site-header" id="SiteHeader">
+  <div class="container header-main">
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">{{ shop.name | default: 'pickNbuy' }}</a>
+    <form class="search" action="{{ routes.search_url }}" method="get" role="search">
+      <span aria-hidden="true">⌕</span><input name="q" type="search" placeholder="Search products, categories & more" autocomplete="off"><input type="hidden" name="type" value="product"><button type="submit" aria-label="Search">Search</button>
+    </form>
+    <nav class="desktop-nav" aria-label="Main navigation"><a href="{{ routes.collections_url }}">Categories</a><a href="/collections/deals">Deals</a><a href="/collections/new-arrivals">New Arrivals</a><a href="/pages/track-order">Track Order</a></nav>
+    <div class="header-actions"><a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account">◯</a><a class="icon-btn" href="/pages/wishlist" aria-label="Wishlist">♡</a><a class="icon-btn cart-button" href="{{ routes.cart_url }}" aria-label="Cart">▢<span class="cart-count">{{ cart.item_count }}</span></a></div>
+  </div>
+</header>
