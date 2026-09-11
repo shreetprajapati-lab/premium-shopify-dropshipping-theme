@@ -1,26 +1,25 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code | default: 'en-IN' }}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-    <meta name="theme-color" content="#f7f5ef">
-    <link rel="canonical" href="{{ canonical_url }}">
-    <title>{% if page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}{% unless page_title contains shop.name %} · {{ shop.name }}{% endunless %}</title>
-    {{ content_for_header }}
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
-  </head>
-  <body class="page-shell">
-    <a class="skip-link" href="#MainContent">Skip to content</a>
-    {% section 'header' %}
-    <main id="MainContent" role="main">{{ content_for_layout }}</main>
-    {% section 'footer' %}
-    <div id="Toast" class="toast" role="status" aria-live="polite"></div>
-    <script>
-      window.ShopifyTheme = {
-        routes: { cartAdd: {{ routes.cart_add_url | json }}, cart: {{ routes.cart_url | json }}, checkout: {{ routes.checkout_url | json }} },
-        currency: {{ cart.currency.iso_code | default: shop.currency | json }}
-      };
-    </script>
-    <script src="{{ 'theme.js' | asset_url }}" defer></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1518">
+  <meta name="description" content="{{ page_description | default: shop.description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <title>{% if page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}{% unless page_title contains shop.name %} · {{ shop.name }}{% endunless %}</title>
+  {{ content_for_header }}
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  <style>:root{--accent:{{ settings.accent_color }};--ink:{{ settings.text_color }};--paper:{{ settings.background_color }};--threshold:{{ settings.free_shipping_threshold | default: 499 }};}</style>
+</head>
+<body class="page-shell">
+  <a class="skip-link" href="#MainContent">Skip to content</a>
+  {% section 'header' %}
+  <main id="MainContent" role="main">{{ content_for_layout }}</main>
+  {% section 'footer' %}
+  <div id="Toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="quickview-backdrop" id="QuickviewBackdrop" hidden></div>
+  <dialog class="quickview" id="QuickviewDialog" aria-label="Quick view"><button class="icon-btn quickview-close" data-quickview-close aria-label="Close">×</button><div id="QuickviewContent"></div></dialog>
+  <script>window.ShopifyTheme={routes:{cartAdd:{{ routes.cart_add_url | json }},cart:{{ routes.cart_url | json }},checkout:{{ routes.checkout_url | json }}}};</script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+</body>
 </html>
